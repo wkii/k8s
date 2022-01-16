@@ -364,7 +364,7 @@ spec:
               memory: 90Mi
       nodeSelector:
         kubernetes.io/os: linux
-        node-type: ingress         # 选择边缘节点
+        node-type: edge         # 选择边缘节点
       hostNetwork: true            # 添加此行，表示使用主机网络
       serviceAccountName: ingress-nginx
       terminationGracePeriodSeconds: 300
