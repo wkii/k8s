@@ -305,6 +305,10 @@ spec:
             - --validating-webhook=:8443
             - --validating-webhook-certificate=/usr/local/certificates/cert
             - --validating-webhook-key=/usr/local/certificates/key
+            # Exposing TCP and UDP services
+            # https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/
+            - --tcp-services-configmap=$(POD_NAMESPACE)/tcp-services
+            - --udp-services-configmap=$(POD_NAMESPACE)/udp-services
           securityContext:
             capabilities:
               drop:
@@ -364,7 +368,7 @@ spec:
               memory: 90Mi
       nodeSelector:
         kubernetes.io/os: linux
-        node-type: edge         # 选择边缘节点
+        node-type: edge            # 选择边缘节点
       hostNetwork: true            # 添加此行，表示使用主机网络
       serviceAccountName: ingress-nginx
       terminationGracePeriodSeconds: 300
