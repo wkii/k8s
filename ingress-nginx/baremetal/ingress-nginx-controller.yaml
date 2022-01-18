@@ -302,13 +302,14 @@ spec:
             - --election-id=ingress-controller-leader
             - --controller-class=k8s.io/ingress-nginx
             - --configmap=$(POD_NAMESPACE)/ingress-nginx-controller
+            # @see https://github.com/helm/charts/tree/master/stable/nginx-ingress
+            # @see https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/
+            - --tcp-services-configmap=$(POD_NAMESPACE)/tcp-services
+            - --udp-services-configmap=$(POD_NAMESPACE)/udp-services
             - --validating-webhook=:8443
             - --validating-webhook-certificate=/usr/local/certificates/cert
             - --validating-webhook-key=/usr/local/certificates/key
-            # Exposing TCP and UDP services
-            # https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/
-            - --tcp-services-configmap=$(POD_NAMESPACE)/tcp-services
-            - --udp-services-configmap=$(POD_NAMESPACE)/udp-services
+            
           securityContext:
             capabilities:
               drop:
